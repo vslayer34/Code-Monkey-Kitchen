@@ -16,20 +16,57 @@ public class Player : MonoBehaviour
     private const float PLAYER_RADIUS = 0.7f;
     private const float PLAyER_HEIGHT = 2.0f;
 
+    // Interactions
+    [Header("Interactables"), SerializeField, Tooltip("Layer mask of interactable objects")]
+    private LayerMask _counterLayeerMask;
+
+    private const float INTERACTION_DISTANCE = 2.0f;
+    private Vector3 _interactionDirection;
+    private Vector3 _lastInteractDirection;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
     private void Update()
     {
+        HandleMovement();
+        HandleInteractions();
+    }
+
+    // Member Methods------------------------------------------------------------------------------
+
+    private void HandleInteractions()
+    {
+        if (_interactionDirection != Vector3.zero)
+        {
+            _lastInteractDirection = _interactionDirection;
+        }
+
+        if (Physics.Raycast(transform.position, _lastInteractDirection, out RaycastHit hit, INTERACTION_DISTANCE, _counterLayeerMask))
+        {
+            if (hit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                clearCounter.Interact();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handle the player character movement and collisions
+    /// </summary>
+    private void HandleMovement()
+    {
         Vector2 inputVector = GameInput.InputVectorNormalized;
         Vector3 moveDirection = new Vector3(inputVector.x, 0.0f, inputVector.y);
 
+        _interactionDirection = moveDirection;
+
         float moveDistance = moveSpeed * Time.deltaTime;
         bool canMove = !Physics.CapsuleCast(
-            transform.position, 
-            transform.position + Vector3.up * PLAyER_HEIGHT, 
-            PLAYER_RADIUS, 
-            moveDirection, 
+            transform.position,
+            transform.position + Vector3.up * PLAyER_HEIGHT,
+            PLAYER_RADIUS,
+            moveDirection,
             moveDistance
         );
 
