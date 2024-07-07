@@ -27,10 +27,16 @@ public class Player : MonoBehaviour
 
 
     // Game Loop Methods---------------------------------------------------------------------------
+
+    private void Start()
+    {
+        GameInput.OnInteractAction += GameInput_OnInteractAction;
+    }
+
     private void Update()
     {
         HandleMovement();
-        HandleInteractions();
+        //HandleInteractions();
     }
 
     // Member Methods------------------------------------------------------------------------------
@@ -126,6 +132,13 @@ public class Player : MonoBehaviour
 
         float rotationSpeed = 10.0f;
         transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * rotationSpeed);
+    }
+
+    // Signal Methods------------------------------------------------------------------------------
+
+    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    {
+        HandleInteractions();
     }
 
     // Getters and Setters-------------------------------------------------------------------------
