@@ -1,9 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
+
+    /// <summary>
+    /// Invoked when the selected counter change
+    /// </summary>
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter;
+    }
+
+
     [field: Header("Required Components")]
     [field: SerializeField, Tooltip("Reference to the game inout script")]
     public GameInput GameInput { get; private set; }
@@ -24,9 +38,23 @@ public class Player : MonoBehaviour
     private Vector3 _interactionDirection;
     private Vector3 _lastInteractDirection;
 
+    private ClearCounter _selectedCounter;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("More than one player in the scen!");
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -36,7 +64,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleMovement();
-        //HandleInteractions();
+        HandleInteractions();
     }
 
     // Member Methods------------------------------------------------------------------------------
@@ -52,8 +80,20 @@ public class Player : MonoBehaviour
         {
             if (hit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
-                clearCounter.Interact();
+                // Check if another counter than previously highlighted one
+                if (_selectedCounter != clearCounter)
+                {
+                    SetClearCounter(clearCounter);
+                }
             }
+            else
+            {
+                SetClearCounter(null);
+            }
+        }
+        else
+        {
+            SetClearCounter(null);
         }
     }
 
@@ -134,11 +174,30 @@ public class Player : MonoBehaviour
         transform.forward = Vector3.Slerp(transform.forward, moveDirection, Time.deltaTime * rotationSpeed);
     }
 
+    /// <summary>
+    /// Set the newly selected counter or reset the counter
+    /// Fire the event for visual updates on the counter
+    /// </summary>
+    /// <param name="clearCounter"></param>
+    private void SetClearCounter(ClearCounter clearCounter)
+    {
+        _selectedCounter = clearCounter;
+
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
+        {
+            selectedCounter = clearCounter
+        });
+    }
+
     // Signal Methods------------------------------------------------------------------------------
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
-        HandleInteractions();
+        //HandleInteractions();
+        if (_selectedCounter != null)
+        {
+            _selectedCounter.Interact();
+        }
     }
 
     // Getters and Setters-------------------------------------------------------------------------
