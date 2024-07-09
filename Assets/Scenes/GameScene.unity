@@ -826,6 +826,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 146301018471140078, guid: 7e1a6b60d1b248c418bf0ffacc5917d6,
         type: 3}
+      propertyPath: _testMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 146301018471140078, guid: 7e1a6b60d1b248c418bf0ffacc5917d6,
+        type: 3}
+      propertyPath: _testCounter
+      value: 
+      objectReference: {fileID: 1060221678}
+    - target: {fileID: 146301018471140078, guid: 7e1a6b60d1b248c418bf0ffacc5917d6,
+        type: 3}
       propertyPath: _kitchenObject
       value: 
       objectReference: {fileID: 11400000, guid: ff0f56a85f1c70648be6c0b3b18ae417,
@@ -890,6 +900,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e1a6b60d1b248c418bf0ffacc5917d6, type: 3}
+--- !u!114 &1060221678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 146301018471140078, guid: 7e1a6b60d1b248c418bf0ffacc5917d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6090607720051213618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df89e25e6321024b937ef3454841d30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1398711189
 GameObject:
   m_ObjectHideFlags: 0
