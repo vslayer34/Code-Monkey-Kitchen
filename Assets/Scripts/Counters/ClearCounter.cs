@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
+public class ClearCounter : MonoBehaviour, IKitchenObjectParent
 {
     [SerializeField, Tooltip("Reference to the placemont point on top of the counter")]
     private Transform _topPlacementPoint;
@@ -12,29 +12,10 @@ public class ClearCounter : MonoBehaviour
 
     private KitchenObject _kitchenObjOnCounter;
 
-    // Testing
-    [SerializeField]
-    private bool _testMode;
-
-    [SerializeField]
-    private ClearCounter _testCounter;
-
 
 
     // Member Methods------------------------------------------------------------------------------
-
-    private void Update()
-    {
-        if (_testMode && Input.GetKeyDown(KeyCode.T))
-        {
-            if (_kitchenObjOnCounter != null)
-            {
-                _kitchenObjOnCounter.SetParentCounter(_testCounter);
-            }
-        }
-    }
-
-    public void Interact()
+    public void Interact(Player player)
     {
         if (_kitchenObjOnCounter == null)
         {
@@ -44,7 +25,7 @@ public class ClearCounter : MonoBehaviour
         }
         else
         {
-            Debug.Log(_kitchenObjOnCounter.GetParentCounter());
+            _kitchenObjOnCounter.GetComponent<KitchenObject>().SetParentCounter(player);
         }
     }
 

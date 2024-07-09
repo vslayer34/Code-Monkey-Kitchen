@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IKitchenObjectParent
 {
     public static Player Instance { get; private set; }
 
@@ -39,6 +39,11 @@ public class Player : MonoBehaviour
     private Vector3 _lastInteractDirection;
 
     private ClearCounter _selectedCounter;
+
+    private KitchenObject _kitchenObjInHand;
+
+    [SerializeField, Tooltip("Reference to the placemont point on top of the counter")]
+    private Transform _KitchenObjectHoldPoint;
 
 
 
@@ -196,11 +201,33 @@ public class Player : MonoBehaviour
         //HandleInteractions();
         if (_selectedCounter != null)
         {
-            _selectedCounter.Interact();
+            _selectedCounter.Interact(this);
         }
     }
+
+    public Transform GetKitchenObjectPlacementPoint()
+    {
+        return _KitchenObjectHoldPoint;
+    }
+
+    public bool IsKitchenObjectOnCounter() => _kitchenObjInHand != null;
 
     // Getters and Setters-------------------------------------------------------------------------
 
     public bool IsWalking { get => _isWalking;  }
+    public KitchenObject KitchenObjectOnCounter
+    {
+        get => _kitchenObjInHand;
+        set
+        {
+            if (!IsKitchenObjectOnCounter() || value == null)
+            {
+                _kitchenObjInHand = value;
+            }
+            else
+            {
+                Debug.LogError("There is an object already on the counter");
+            }
+        }
+    }
 }

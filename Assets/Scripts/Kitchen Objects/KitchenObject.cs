@@ -8,13 +8,13 @@ public class KitchenObject : MonoBehaviour
     public SO_KitchenObject KitchenObj { get; private set; }
 
 
-    private ClearCounter _parentCounter;
+    private IKitchenObjectParent _parentCounter;
 
 
 
     // Member Methods------------------------------------------------------------------------------
 
-    public void SetParentCounter(ClearCounter clearCounter)
+    public void SetParentCounter(IKitchenObjectParent clearCounter)
     {
         // Remove the old parent
         if (_parentCounter != null)
@@ -29,5 +29,5 @@ public class KitchenObject : MonoBehaviour
         transform.parent = _parentCounter.GetKitchenObjectPlacementPoint();
         transform.localPosition = Vector3.zero;
     }
-    public ClearCounter GetParentCounter() => _parentCounter;
+    public IKitchenObjectParent GetParentCounter() => _parentCounter;
 }
