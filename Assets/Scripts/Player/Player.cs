@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
-        public ClearCounter selectedCounter;
+        public BaseCounter selectedCounter;
     }
 
 
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private Vector3 _interactionDirection;
     private Vector3 _lastInteractDirection;
 
-    private ClearCounter _selectedCounter;
+    private BaseCounter _selectedCounter;
 
     private KitchenObject _kitchenObjInHand;
 
@@ -83,12 +83,12 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
         if (Physics.Raycast(transform.position, _lastInteractDirection, out RaycastHit hit, INTERACTION_DISTANCE, _counterLayeerMask))
         {
-            if (hit.transform.TryGetComponent(out ClearCounter clearCounter))
+            if (hit.transform.TryGetComponent(out BaseCounter baseCounter))
             {
                 // Check if another counter than previously highlighted one
-                if (_selectedCounter != clearCounter)
+                if (_selectedCounter != baseCounter)
                 {
-                    SetClearCounter(clearCounter);
+                    SetClearCounter(baseCounter);
                 }
             }
             else
@@ -183,14 +183,14 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     /// Set the newly selected counter or reset the counter
     /// Fire the event for visual updates on the counter
     /// </summary>
-    /// <param name="clearCounter"></param>
-    private void SetClearCounter(ClearCounter clearCounter)
+    /// <param name="baseCounter"></param>
+    private void SetClearCounter(BaseCounter baseCounter)
     {
-        _selectedCounter = clearCounter;
+        _selectedCounter = baseCounter;
 
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
-            selectedCounter = clearCounter
+            selectedCounter = baseCounter
         });
     }
 

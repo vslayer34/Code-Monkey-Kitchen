@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SelectedCounterVisuals : MonoBehaviour
 {
     [SerializeField, Tooltip("Reference to the parent counter")]
-    private ClearCounter _parentClearCounter;
+    private BaseCounter _parentBaseCounter;
 
     [SerializeField, Tooltip("Reference to the selected highlight")]
-    private GameObject _selectedHighlight;
+    private GameObject[] _selectedHighlightVisual;
 
 
 
@@ -23,18 +24,31 @@ public class SelectedCounterVisuals : MonoBehaviour
 
     private void PlayerInstance_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
     {
-        if (e.selectedCounter == _parentClearCounter)
+        if (e.selectedCounter == _parentBaseCounter)
         {
-            _selectedHighlight.SetActive(true);
+            ShowSelectionHighlight();
         }
         else
         {
-            _selectedHighlight.SetActive(false);
+            //_selectedHighlight.SetActive(false);
+            RemoveSelectionHighlight();
         }
     }
 
     // Member Methods------------------------------------------------------------------------------
 
-    private void ShowSelectionHighlight() => _selectedHighlight.SetActive(true);
-    private void RemoveSelectionHighlight() => _selectedHighlight.SetActive(false);
+    private void ShowSelectionHighlight()
+    {
+        foreach (var visual in _selectedHighlightVisual)
+        {
+            visual.SetActive(true);
+        }
+    }
+    private void RemoveSelectionHighlight()
+    {
+        foreach (var visual in _selectedHighlightVisual)
+        {
+            visual.SetActive(false);
+        }
+    }
 }
