@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerCounter : BaseCounter
 {
+    public event EventHandler OnKitchenObjectGrabbed;
+
+
     [SerializeField, Tooltip("Reference to the tomato")]
     private SO_KitchenObject _kitchenObject;
 
@@ -20,6 +24,7 @@ public class ContainerCounter : BaseCounter
             var newKitchenObject = Instantiate(_kitchenObject.Prefab);
 
             newKitchenObject.GetComponent<KitchenObject>().SetParentCounter(player);
+            OnKitchenObjectGrabbed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

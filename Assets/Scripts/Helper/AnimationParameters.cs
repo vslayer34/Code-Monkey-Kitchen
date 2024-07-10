@@ -13,4 +13,16 @@ public static class AnimationParameters
         /// </summary>
         public const string IS_WALKING = "isWalking";
     }
+
+
+    /// <summary>
+    /// Contains references to container counter's animation parameters
+    /// </summary>
+    public static class ContainerCounter
+    {
+        /// <summary>
+        /// Reference to<c>isWalking</c>parameter
+        /// </summary>
+        public const string OPEN_CLOSE = "OpenClose";
+    }
 }
