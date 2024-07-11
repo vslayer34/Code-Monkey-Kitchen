@@ -127,7 +127,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
             // Attempt moving in the x drection
             Vector3 moveDirectionX = new Vector3(moveDirection.x, 0.0f, 0.0f);
 
-            canMove = !Physics.CapsuleCast(
+            canMove = moveDirection.x != 0 && !Physics.CapsuleCast(
                 transform.position,
                 transform.position + Vector3.up * PLAyER_HEIGHT,
                 PLAYER_RADIUS,
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
                 // Attempt moving in the z axis
                 Vector3 moveDirectionZ = new Vector3(0.0f, 0.0f, moveDirection.z);
 
-                canMove = !Physics.CapsuleCast(
+                canMove = moveDirection.z != 0 && !Physics.CapsuleCast(
                     transform.position,
                     transform.position + Vector3.up * PLAyER_HEIGHT,
                     PLAYER_RADIUS,
