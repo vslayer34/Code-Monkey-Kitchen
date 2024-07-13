@@ -10,6 +10,7 @@ public abstract class BaseCounter : MonoBehaviour, IKitchenObjectParent
     private KitchenObject _kitchenObjOnCounter;
 
     public virtual void Interact(Player player) { }
+    public virtual void InteractAlt(Player player) { }
 
 
 

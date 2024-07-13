@@ -64,6 +64,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private void Start()
     {
         GameInput.OnInteractAction += GameInput_OnInteractAction;
+        GameInput.OnInteractAltAction += GameInput_OnInteractAltAction;
     }
 
     private void Update()
@@ -204,6 +205,16 @@ public class Player : MonoBehaviour, IKitchenObjectParent
             _selectedCounter.Interact(this);
         }
     }
+
+    private void GameInput_OnInteractAltAction(object sender, EventArgs e)
+    {
+        if (_selectedCounter != null)
+        {
+            _selectedCounter.InteractAlt(this);
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
 
     public Transform GetKitchenObjectPlacementPoint()
     {

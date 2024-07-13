@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
+    public event EventHandler OnInteractAction;
+    public event EventHandler OnInteractAltAction;
+
     private PlayerInputAction _playerInputAction;
 
     private Vector2 _inputVector;
-    public event EventHandler OnInteractAction;
+    
 
 
 
@@ -20,6 +23,7 @@ public class GameInput : MonoBehaviour
         _playerInputAction.Player.Enable();
 
         _playerInputAction.Player.Interact.performed += Interact_performed;
+        _playerInputAction.Player.InteractAlt.performed += InteractAlt_performed;
     }
 
     private void Update()
@@ -34,6 +38,11 @@ public class GameInput : MonoBehaviour
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void InteractAlt_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnInteractAltAction?.Invoke(this, EventArgs.Empty);
     }
 
     // Getters and Setters-------------------------------------------------------------------------

@@ -24,9 +24,9 @@ public class ContainerCounter : BaseCounter
             if (!player.IsKitchenObjectOnCounter())
             {
                 // if the player hands is empty spawn new kitchen object
-                var newKitchenObject = Instantiate(_kitchenObject.Prefab);
 
-                newKitchenObject.GetComponent<KitchenObject>().SetParentCounter(player);
+                KitchenObject.SpawnNewKitchenObject(_kitchenObject, player);
+
                 OnKitchenObjectGrabbed?.Invoke(this, EventArgs.Empty);
 
             }
