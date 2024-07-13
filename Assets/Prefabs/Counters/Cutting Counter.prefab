@@ -104,7 +104,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topPlacementPoint: {fileID: 8876286111883827440}
-  _tomatoSlices: {fileID: 0}
+  _CuttingReciepes:
+  - {fileID: 11400000, guid: 422282e6e435e7e439b6cd942c58e84e, type: 2}
+  - {fileID: 11400000, guid: 615994b77a463c8469f063e6998e8d82, type: 2}
+  - {fileID: 11400000, guid: 8ca9ef09c7641f746b06f642b8a2c456, type: 2}
 --- !u!4 &8350034417331039999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4323348084294570613, guid: d23219af72d7e0c40b41aa1f78ea2413,

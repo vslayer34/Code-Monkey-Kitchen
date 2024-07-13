@@ -5,7 +5,7 @@ using UnityEngine;
 public class CuttingCounter : BaseCounter
 {
     [SerializeField, Tooltip("Referecne to the produced ingredient")]
-    private SO_KitchenObject _tomatoSlices;
+    private SO_CuttingReciepe[] _CuttingReciepes;
 
 
 
@@ -17,7 +17,11 @@ public class CuttingCounter : BaseCounter
             // There is no object on top of the counter
             if (player.IsKitchenObjectOnCounter())
             {
-                player.KitchenObjectOnCounter.SetParentCounter(this);
+                if (IsIngredientCuttable(player.KitchenObjectOnCounter.KitchenObj))
+                {
+                    // Drop the item if its cuttable
+                    player.KitchenObjectOnCounter.SetParentCounter(this);
+                }
             }
             else
             {
@@ -42,11 +46,41 @@ public class CuttingCounter : BaseCounter
 
     public override void InteractAlt(Player player)
     {
-        if (IsKitchenObjectOnCounter())
+        // Only cut if there's in a kitchen object and is cuttable
+        if (IsKitchenObjectOnCounter() && IsIngredientCuttable(KitchenObjectOnCounter.KitchenObj))
         {
+            SO_KitchenObject ingredient = GetRelatingOutput(KitchenObjectOnCounter.KitchenObj);
             KitchenObjectOnCounter.DestroySelf();
 
-            KitchenObject.SpawnNewKitchenObject(_tomatoSlices, this);
+            KitchenObject.SpawnNewKitchenObject(ingredient, this);
         }
+    }
+
+    
+    private bool IsIngredientCuttable(SO_KitchenObject ingredient)
+    {
+        foreach (var cuttingReciepe in _CuttingReciepes)
+        {
+            if (cuttingReciepe.Input == ingredient)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    private SO_KitchenObject GetRelatingOutput(SO_KitchenObject ingredient)
+    {
+        foreach (var cuttingReciepe in _CuttingReciepes)
+        {
+            if (cuttingReciepe.Input == ingredient)
+            {
+                return cuttingReciepe.Output;
+            }
+        }
+
+        return null;
     }
 }
