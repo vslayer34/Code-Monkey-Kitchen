@@ -371,3 +371,5 @@ MonoBehaviour:
   _topPlacementPoint: {fileID: 734252576736168900}
   _fryingRecipes:
   - {fileID: 11400000, guid: bc9497dc57d6b2a80a22ac5dfca2bf38, type: 2}
+  _burningRecipes:
+  - {fileID: 11400000, guid: 8957076f103e72fda95a5961daf8a0d5, type: 2}

@@ -13,8 +13,14 @@ public class StoveCounter : BaseCounter
     [SerializeField, Tooltip("Reference to the frying recipes")]
     private SO_FryingReciepe[] _fryingRecipes;
 
+    [SerializeField, Tooltip("Reference to the frying recipes")]
+    private SO_BurningReciepe[] _burningRecipes;
+
     private SO_FryingReciepe _fryingRecipe;
+    private SO_BurningReciepe _burningRecipe;
+
     private float _fryingTimer;
+    private float _burningTimer;
 
     private State _state;
 
@@ -49,11 +55,29 @@ public class StoveCounter : BaseCounter
                         KitchenObject.SpawnNewKitchenObject(_fryingRecipe.Output, this);
 
                         _state = State.Fried;
+
+                        _burningRecipe = GetBurningReciepe(_fryingRecipe.Output);
                     }
                     break;
 
                 case State.Fried:
+
+                    _burningTimer += Time.deltaTime;
+            
+                    // Frying the meat
+                    if (_burningTimer >= _burningRecipe.TimeRequiredToBurn)
+                    {
+                        _burningTimer = 0.0f;
+
+                        KitchenObjectOnCounter.DestroySelf();
+
+                        KitchenObject.SpawnNewKitchenObject(_burningRecipe.Output, this);
+
+                        _state = State.Burned;
+                    }
+                    
                     break;
+
                 
                 case State.Burned:
                     break;
@@ -136,6 +160,20 @@ public class StoveCounter : BaseCounter
             if (fryingReciepe.Input == ingredient)
             {
                 return fryingReciepe;
+            }
+        }
+
+        return null;
+    }
+
+
+    private SO_BurningReciepe GetBurningReciepe(SO_KitchenObject ingredient)
+    {
+        foreach (var burningReciepe in _burningRecipes)
+        {
+            if (burningReciepe.Input == ingredient)
+            {
+                return burningReciepe;
             }
         }
 
