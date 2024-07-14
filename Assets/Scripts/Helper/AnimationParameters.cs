@@ -21,8 +21,20 @@ public static class AnimationParameters
     public static class ContainerCounter
     {
         /// <summary>
-        /// Reference to<c>isWalking</c>parameter
+        /// Reference to<c>OpenClose</c>parameter
         /// </summary>
         public const string OPEN_CLOSE = "OpenClose";
+    }
+
+
+    /// <summary>
+    /// Contains references to cutting counter's animation parameters
+    /// </summary>
+    public static class CuttingCounter
+    {
+        /// <summary>
+        /// Reference to<c>Cut</c>parameter
+        /// </summary>
+        public const string CUT = "Cut";
     }
 }

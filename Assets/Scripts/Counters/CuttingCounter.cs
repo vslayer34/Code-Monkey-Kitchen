@@ -1,11 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CuttingCounter : BaseCounter
 {
+    public event Action<float> OnProgressBarUpdated;
+    public event Action OnCut;
+
+
     [SerializeField, Tooltip("Referecne to the produced ingredient")]
-    private SO_CuttingReciepe[] _CuttingReciepes;
+    private SO_CuttingReciepe[] _cuttingReciepes;
+
+    private int _cuttingProgress;
 
 
 
@@ -21,6 +26,11 @@ public class CuttingCounter : BaseCounter
                 {
                     // Drop the item if its cuttable
                     player.KitchenObjectOnCounter.SetParentCounter(this);
+                    _cuttingProgress = 0;
+
+                    SO_CuttingReciepe cuttingRecipe = GetCuttingReciepe(KitchenObjectOnCounter.KitchenObj);
+
+                    OnProgressBarUpdated?.Invoke(_cuttingProgress / (float)cuttingRecipe.CuttingStepsRequired);
                 }
             }
             else
@@ -49,35 +59,52 @@ public class CuttingCounter : BaseCounter
         // Only cut if there's in a kitchen object and is cuttable
         if (IsKitchenObjectOnCounter() && IsIngredientCuttable(KitchenObjectOnCounter.KitchenObj))
         {
-            SO_KitchenObject ingredient = GetRelatingOutput(KitchenObjectOnCounter.KitchenObj);
-            KitchenObjectOnCounter.DestroySelf();
+            _cuttingProgress++;
+            SO_CuttingReciepe cuttingRecipe = GetCuttingReciepe(KitchenObjectOnCounter.KitchenObj);
 
-            KitchenObject.SpawnNewKitchenObject(ingredient, this);
+            OnProgressBarUpdated?.Invoke(_cuttingProgress / (float)cuttingRecipe.CuttingStepsRequired);
+            OnCut?.Invoke();
+
+            if (_cuttingProgress >= cuttingRecipe.CuttingStepsRequired)
+            {
+                SO_KitchenObject ingredient = GetRelatingOutput(KitchenObjectOnCounter.KitchenObj);
+                KitchenObjectOnCounter.DestroySelf();
+
+                KitchenObject.SpawnNewKitchenObject(ingredient, this);
+            }
         }
     }
 
     
     private bool IsIngredientCuttable(SO_KitchenObject ingredient)
     {
-        foreach (var cuttingReciepe in _CuttingReciepes)
-        {
-            if (cuttingReciepe.Input == ingredient)
-            {
-                return true;
-            }
-        }
+        SO_CuttingReciepe cuttingRecipe = GetCuttingReciepe(ingredient);
 
-        return false;
+        return cuttingRecipe != null;
     }
 
 
     private SO_KitchenObject GetRelatingOutput(SO_KitchenObject ingredient)
     {
-        foreach (var cuttingReciepe in _CuttingReciepes)
+        SO_CuttingReciepe cuttingRecipe = GetCuttingReciepe(ingredient);
+
+        if (cuttingRecipe != null)
+        {
+            return cuttingRecipe.Output;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private SO_CuttingReciepe GetCuttingReciepe(SO_KitchenObject ingredient)
+    {
+        foreach (var cuttingReciepe in _cuttingReciepes)
         {
             if (cuttingReciepe.Input == ingredient)
             {
-                return cuttingReciepe.Output;
+                return cuttingReciepe;
             }
         }
 

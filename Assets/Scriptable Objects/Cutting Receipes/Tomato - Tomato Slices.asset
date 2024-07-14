@@ -16,3 +16,4 @@ MonoBehaviour:
     type: 2}
   <Output>k__BackingField: {fileID: 11400000, guid: ded57a8527c4c084082e740583fa0c87,
     type: 2}
+  <CuttingStepsRequired>k__BackingField: 3

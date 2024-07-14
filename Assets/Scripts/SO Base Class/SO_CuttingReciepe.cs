@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -20,4 +18,11 @@ public class SO_CuttingReciepe : ScriptableObject
     [field: SerializeField, Tooltip("Produced ingredient")]
     public SO_KitchenObject Output { get; private set; }
 
+
+
+    /// <summary>
+    /// Number of steps to prepear the ingredient
+    /// </summary>
+    [field: SerializeField, Tooltip("Number of steps to prepear the ingredient")]
+    public int CuttingStepsRequired { get; private set; }
 }
