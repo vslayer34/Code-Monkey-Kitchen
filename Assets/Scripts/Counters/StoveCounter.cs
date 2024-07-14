@@ -75,7 +75,7 @@ public class StoveCounter : BaseCounter
 
                         _state = State.Burned;
                     }
-                    
+
                     break;
 
                 
@@ -126,6 +126,8 @@ public class StoveCounter : BaseCounter
                 // The player isn't carring anything
                 // Give the item on counter to the player
                 KitchenObjectOnCounter.SetParentCounter(player);
+
+                _state = State.Idle;
             }
         }
     }
