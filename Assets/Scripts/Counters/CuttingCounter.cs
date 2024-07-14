@@ -28,8 +28,8 @@ public class CuttingCounter : BaseCounter
                     player.KitchenObjectOnCounter.SetParentCounter(this);
                     _cuttingProgress = 0;
 
+                    // Update the UI
                     SO_CuttingReciepe cuttingRecipe = GetCuttingReciepe(KitchenObjectOnCounter.KitchenObj);
-
                     OnProgressBarUpdated?.Invoke(_cuttingProgress / (float)cuttingRecipe.CuttingStepsRequired);
                 }
             }
@@ -62,9 +62,11 @@ public class CuttingCounter : BaseCounter
             _cuttingProgress++;
             SO_CuttingReciepe cuttingRecipe = GetCuttingReciepe(KitchenObjectOnCounter.KitchenObj);
 
+            // Update the UI and animations
             OnProgressBarUpdated?.Invoke(_cuttingProgress / (float)cuttingRecipe.CuttingStepsRequired);
             OnCut?.Invoke();
 
+            // Create the cut ingredients and destroy the raw one
             if (_cuttingProgress >= cuttingRecipe.CuttingStepsRequired)
             {
                 SO_KitchenObject ingredient = GetRelatingOutput(KitchenObjectOnCounter.KitchenObj);
