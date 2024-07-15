@@ -87,7 +87,6 @@ public class StoveCounter : BaseCounter
                     break;
             }
         }
-        Debug.Log($"Current stove state: {_state}");
     }
     // Member Methods------------------------------------------------------------------------------
 
