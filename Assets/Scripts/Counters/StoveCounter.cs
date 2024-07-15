@@ -9,9 +9,11 @@ public enum State
     Burned
 }
 
-public class StoveCounter : BaseCounter
+public class StoveCounter : BaseCounter, IHasProgressBar
 {
     public event EventHandler<OnStoveStateChangedEventArgs> OnStoveStateChanged;
+    public event Action<float> OnProgressBarUpdated;
+
     public class OnStoveStateChangedEventArgs : EventArgs
     {
         public State state;
@@ -51,6 +53,8 @@ public class StoveCounter : BaseCounter
                 
                 case State.Frying:
                     _fryingTimer += Time.deltaTime;
+
+                    OnProgressBarUpdated?.Invoke(_fryingTimer / _fryingRecipe.TimeRequiredToCook);
             
                     // Frying the meat
                     if (_fryingTimer >= _fryingRecipe.TimeRequiredToCook)
@@ -75,6 +79,8 @@ public class StoveCounter : BaseCounter
                 case State.Fried:
 
                     _burningTimer += Time.deltaTime;
+
+                    OnProgressBarUpdated?.Invoke(_burningTimer / _burningRecipe.TimeRequiredToBurn);
             
                     // Frying the meat
                     if (_burningTimer >= _burningRecipe.TimeRequiredToBurn)
@@ -97,6 +103,7 @@ public class StoveCounter : BaseCounter
 
                 
                 case State.Burned:
+                    OnProgressBarUpdated?.Invoke(0.0f);
                     break;
                 
                 default:
@@ -128,6 +135,8 @@ public class StoveCounter : BaseCounter
                     {
                         state = _state
                     });
+
+                    OnProgressBarUpdated?.Invoke(_fryingTimer / _fryingRecipe.TimeRequiredToCook);
                 }
             }
             else
@@ -154,6 +163,8 @@ public class StoveCounter : BaseCounter
                 {
                     state = _state
                 });
+
+                OnProgressBarUpdated?.Invoke(0.0f);
             }
         }
     }

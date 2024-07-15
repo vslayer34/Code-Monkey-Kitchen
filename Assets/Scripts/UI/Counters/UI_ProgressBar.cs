@@ -10,7 +10,9 @@ public class UI_ProgressBar : MonoBehaviour
 
 
     [SerializeField, Tooltip("Reference to the parent cutting counter")]
-    private CuttingCounter _cuttingCounter;
+    private GameObject _parentObjectWithInterface;
+
+    private IHasProgressBar _progressBarInterface;
 
 
 
@@ -18,7 +20,13 @@ public class UI_ProgressBar : MonoBehaviour
 
     private void Start()
     {
-        _cuttingCounter.OnProgressBarUpdated += CuttingCounter_OnProgressBarUpdated;
+        _progressBarInterface = _parentObjectWithInterface.GetComponent<IHasProgressBar>();
+
+        if (_progressBarInterface == null)
+        {
+            Debug.LogError($"This paren gameobject {_parentObjectWithInterface.name} doesn't have the required interface");
+        }
+        _progressBarInterface.OnProgressBarUpdated += ProgressBarInterface_OnProgressBarUpdated;
         _progressBar.fillAmount = 0.0f;
 
         HideBar();
@@ -28,7 +36,7 @@ public class UI_ProgressBar : MonoBehaviour
     private void ShowBar() => gameObject.SetActive(true);
     private void HideBar() => gameObject.SetActive(false);
     // Signal Methods------------------------------------------------------------------------------
-    private void CuttingCounter_OnProgressBarUpdated(float progressAmount)
+    private void ProgressBarInterface_OnProgressBarUpdated(float progressAmount)
     {
         _progressBar.fillAmount = progressAmount;
 

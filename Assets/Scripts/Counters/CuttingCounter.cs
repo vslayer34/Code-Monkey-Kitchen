@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CuttingCounter : BaseCounter
+public class CuttingCounter : BaseCounter, IHasProgressBar
 {
     public event Action<float> OnProgressBarUpdated;
     public event Action OnCut;
