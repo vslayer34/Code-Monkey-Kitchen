@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71243e5be2acc9a4891162a73856f6b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <KitchenObj>k__BackingField: {fileID: 11400000, guid: ded57a8527c4c084082e740583fa0c87,
+  <KitchenObj>k__BackingField: {fileID: 11400000, guid: abdf2c36266176945b44c7ec44715800,
     type: 2}
 --- !u!1001 &4718310178905081337
 PrefabInstance:
