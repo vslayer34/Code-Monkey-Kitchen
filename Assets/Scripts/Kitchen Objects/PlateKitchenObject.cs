@@ -47,4 +47,8 @@ public class PlateKitchenObject : KitchenObject
             return true;
         }
     }
+
+    // Getters and Setters-------------------------------------------------------------------------
+
+    public List<SO_KitchenObject> PlateContents { get => _plateContents; }
 }
