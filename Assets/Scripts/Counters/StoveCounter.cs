@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-internal enum State
+public enum State
 {
     Idle,
     Frying,
@@ -10,6 +11,12 @@ internal enum State
 
 public class StoveCounter : BaseCounter
 {
+    public event EventHandler<OnStoveStateChangedEventArgs> OnStoveStateChanged;
+    public class OnStoveStateChangedEventArgs : EventArgs
+    {
+        public State state;
+    }
+
     [SerializeField, Tooltip("Reference to the frying recipes")]
     private SO_FryingReciepe[] _fryingRecipes;
 
@@ -56,6 +63,11 @@ public class StoveCounter : BaseCounter
 
                         _state = State.Fried;
 
+                        OnStoveStateChanged?.Invoke(this, new OnStoveStateChangedEventArgs
+                        {
+                            state = _state
+                        });
+
                         _burningRecipe = GetBurningReciepe(_fryingRecipe.Output);
                     }
                     break;
@@ -74,6 +86,11 @@ public class StoveCounter : BaseCounter
                         KitchenObject.SpawnNewKitchenObject(_burningRecipe.Output, this);
 
                         _state = State.Burned;
+
+                        OnStoveStateChanged?.Invoke(this, new OnStoveStateChangedEventArgs
+                        {
+                            state = _state
+                        });
                     }
 
                     break;
@@ -106,6 +123,11 @@ public class StoveCounter : BaseCounter
 
                     _fryingTimer = 0.0f;
                     _state = State.Frying;
+
+                    OnStoveStateChanged?.Invoke(this, new OnStoveStateChangedEventArgs
+                    {
+                        state = _state
+                    });
                 }
             }
             else
@@ -127,6 +149,11 @@ public class StoveCounter : BaseCounter
                 KitchenObjectOnCounter.SetParentCounter(player);
 
                 _state = State.Idle;
+
+                OnStoveStateChanged?.Invoke(this, new OnStoveStateChangedEventArgs
+                {
+                    state = _state
+                });
             }
         }
     }
