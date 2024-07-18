@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4452f5f50f6974789bfdb0cde99418, type: 3}
+  m_Name: Cheese Burger
+  m_EditorClassIdentifier: 
+  <RecipeName>k__BackingField: Cheese Burger
+  <RecipeIngredients>k__BackingField:
+  - {fileID: 11400000, guid: 986fe11fb360bf44f8af684ea68056db, type: 2}
+  - {fileID: 11400000, guid: 06bdac76976823c4ca9c093c9d83fbde, type: 2}
+  - {fileID: 11400000, guid: 8fdf332feb1c5644ab44293c65363b12, type: 2}
