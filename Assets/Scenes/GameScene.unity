@@ -472,6 +472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 208966371}
+  - component: {fileID: 208966372}
   m_Layer: 0
   m_Name: Delivery Manager
   m_TagString: Untagged
@@ -494,6 +495,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &208966372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208966370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d36ee270d5301e49a67f6e29bc07c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DaysMenu>k__BackingField: {fileID: 11400000, guid: e12ce69545d446040b1e446748c88973,
+    type: 2}
 --- !u!1001 &261624078
 PrefabInstance:
   m_ObjectHideFlags: 0
