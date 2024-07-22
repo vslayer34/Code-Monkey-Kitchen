@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
+    public static event EventHandler OnAnyObjectPlacedOnCounter;
+
     [SerializeField, Tooltip("Reference to the placemont point on top of the counter")]
     protected Transform _topPlacementPoint;
 
@@ -31,6 +34,11 @@ public abstract class BaseCounter : MonoBehaviour, IKitchenObjectParent
             if (!IsKitchenObjectOnCounter() || value == null)
             {
                 _kitchenObjOnCounter = value;
+
+                if (_kitchenObjOnCounter != null)
+                {
+                    OnAnyObjectPlacedOnCounter?.Invoke(this, EventArgs.Empty);
+                }
             }
             else
             {
