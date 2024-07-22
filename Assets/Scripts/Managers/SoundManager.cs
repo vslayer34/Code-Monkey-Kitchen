@@ -17,6 +17,7 @@ public class SoundManager : MonoBehaviour
         CuttingCounter.OnAnyCutting += CuttingCounter_OnAnyCutting;
         Player.Instance.OnKitchenObjectPickedUp += Player_KitchenObjectPickedUp;
         BaseCounter.OnAnyObjectPlacedOnCounter += BaseCounter_OnAnyObjectPlacedOnCounter;
+        TrashCounter.OnAnyKitchenObjectTrashed += TrashCounter_OnAnyKitchenObjectTrashed;
     }
 
     // Member Methods------------------------------------------------------------------------------
@@ -58,5 +59,11 @@ public class SoundManager : MonoBehaviour
     {
         var usedCounter = sender as BaseCounter;
         PlaySound(_audioClipRef.DroppedObjectSFX, usedCounter.transform.position);
+    }
+
+    private void TrashCounter_OnAnyKitchenObjectTrashed(object sender, EventArgs e)
+    {
+        var activeTrashCounter = sender as TrashCounter;
+        PlaySound(_audioClipRef.TrashedObjectSFX, activeTrashCounter.transform.position);
     }
 }
