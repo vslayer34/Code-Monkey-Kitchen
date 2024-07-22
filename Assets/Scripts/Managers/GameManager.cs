@@ -1,0 +1,101 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
+    public class OnStateChangedEventArgs : EventArgs
+    {
+        public GameState state;
+    }
+
+    public static GameManager Instance { get; private set; }
+    public enum GameState
+    {
+        WaitingToStart,
+        CountDownToStart,
+        Playing,
+        GameOver
+    }
+
+    private GameState _currentGameState;
+
+    // Timers for the game state
+    private float _waitingToStartTimer = 1.0f;
+    private float _countDownToStartTimer = 3.0f;
+    private float _playingTimer = 10.0f;
+
+
+
+    // Game Lopp Methods---------------------------------------------------------------------------
+
+    private void Awake()
+    {
+        Instance = this;
+        _currentGameState = GameState.WaitingToStart;
+    }
+
+    private void Update()
+    {
+        switch (_currentGameState)
+        {
+            case GameState.WaitingToStart:
+                
+                _waitingToStartTimer -= Time.deltaTime;
+
+                if (_waitingToStartTimer <= 0.0f)
+                {
+                    _currentGameState = GameState.CountDownToStart;
+                }
+
+                OnStateChanged?.Invoke(this, new OnStateChangedEventArgs{ state = _currentGameState });
+                break;
+            
+            case GameState.CountDownToStart:
+
+                _countDownToStartTimer -= Time.deltaTime;
+
+                if (_countDownToStartTimer <= 0.0f)
+                {
+                    _currentGameState = GameState.Playing;
+                }
+                OnStateChanged?.Invoke(this, new OnStateChangedEventArgs{ state = _currentGameState });
+
+                break;
+            
+            case GameState.Playing:
+
+                _playingTimer -= Time.deltaTime;
+
+                if (_playingTimer <= 0.0f)
+                {
+                    _currentGameState = GameState.GameOver;
+                }
+                OnStateChanged?.Invoke(this, new OnStateChangedEventArgs{ state = _currentGameState });
+
+                break;
+            
+            case GameState.GameOver:
+
+                Debug.Log("Game Over");
+                Time.timeScale = 0.0f;
+                break;
+            
+            default:
+                Debug.LogError("There's no such state for the game", this);
+                break;
+        }
+
+        Debug.Log($"Current game state: {_currentGameState}");
+    }
+
+    // Member Methods------------------------------------------------------------------------------
+
+    public bool IsGamePlaying() => _currentGameState == GameState.Playing;
+
+    // Getters & Setters---------------------------------------------------------------------------
+
+    public float CountdownToStartTimer { get => _countDownToStartTimer; }
+}
