@@ -14,10 +14,14 @@ public class SoundManager : MonoBehaviour
     {
         DeliveryManager.Instance.OnOrderDelivered += DeliveryManager_OnOrderDelivered;
         DeliveryManager.Instance.OnOrderRejected += DeliveryManager_OnOrderRejected;
+        
         CuttingCounter.OnAnyCutting += CuttingCounter_OnAnyCutting;
+
         Player.Instance.OnKitchenObjectPickedUp += Player_KitchenObjectPickedUp;
+        
         BaseCounter.OnAnyObjectPlacedOnCounter += BaseCounter_OnAnyObjectPlacedOnCounter;
         TrashCounter.OnAnyKitchenObjectTrashed += TrashCounter_OnAnyKitchenObjectTrashed;
+
         PlayerSound.OnPlayerWaliking += Player_Waliking;
     }
 
