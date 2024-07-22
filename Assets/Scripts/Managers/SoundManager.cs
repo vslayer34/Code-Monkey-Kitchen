@@ -18,6 +18,7 @@ public class SoundManager : MonoBehaviour
         Player.Instance.OnKitchenObjectPickedUp += Player_KitchenObjectPickedUp;
         BaseCounter.OnAnyObjectPlacedOnCounter += BaseCounter_OnAnyObjectPlacedOnCounter;
         TrashCounter.OnAnyKitchenObjectTrashed += TrashCounter_OnAnyKitchenObjectTrashed;
+        PlayerSound.OnPlayerWaliking += Player_Waliking;
     }
 
     // Member Methods------------------------------------------------------------------------------
@@ -65,5 +66,10 @@ public class SoundManager : MonoBehaviour
     {
         var activeTrashCounter = sender as TrashCounter;
         PlaySound(_audioClipRef.TrashedObjectSFX, activeTrashCounter.transform.position);
+    }
+
+    private void Player_Waliking(object sender, EventArgs e)
+    {
+        PlaySound(_audioClipRef.FootStepSFX, Player.Instance.transform.position);
     }
 }
