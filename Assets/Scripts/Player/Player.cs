@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     public static Player Instance { get; private set; }
 
 
+    public event EventHandler OnKitchenObjectPickedUp;
     /// <summary>
     /// Invoked when the selected counter change
     /// </summary>
@@ -234,6 +235,11 @@ public class Player : MonoBehaviour, IKitchenObjectParent
             if (!IsKitchenObjectOnCounter() || value == null)
             {
                 _kitchenObjInHand = value;
+
+                if (_kitchenObjInHand != null)
+                {
+                    OnKitchenObjectPickedUp?.Invoke(this, EventArgs.Empty);
+                }
             }
             else
             {
