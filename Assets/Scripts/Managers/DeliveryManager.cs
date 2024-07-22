@@ -8,6 +8,8 @@ public class DeliveryManager : MonoBehaviour
 {
     public EventHandler OnNewOrderAdded;
     public EventHandler OnOrderCompleted;
+    public EventHandler OnOrderDelivered;
+    public EventHandler OnOrderRejected;
 
     public static DeliveryManager Instance { get; private set; }
 
@@ -96,12 +98,14 @@ public class DeliveryManager : MonoBehaviour
                     Debug.Log("Player delivered correct recipe");
                     _waitingOrders.RemoveAt(i);
                     OnOrderCompleted?.Invoke(this, EventArgs.Empty);
+                    OnOrderDelivered?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
         }
 
         // No matches found
+        OnOrderRejected?.Invoke(this, EventArgs.Empty);
         Debug.Log("The recipe being delivered is incorrect");
     }
 
