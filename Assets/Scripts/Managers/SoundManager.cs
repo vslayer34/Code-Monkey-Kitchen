@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     {
         DeliveryManager.Instance.OnOrderDelivered += DeliveryManager_OnOrderDelivered;
         DeliveryManager.Instance.OnOrderRejected += DeliveryManager_OnOrderRejected;
+        CuttingCounter.OnAnyCutting += CuttingCounter_OnAnyCutting;
     }
 
     // Member Methods------------------------------------------------------------------------------
@@ -38,5 +39,11 @@ public class SoundManager : MonoBehaviour
     private void DeliveryManager_OnOrderRejected(object sender, EventArgs e)
     {
         PlaySound(_audioClipRef.FailedDeliverySFX, DeliveryCounter.Instance.transform.position);
+    }
+
+    private void CuttingCounter_OnAnyCutting(object sender, EventArgs e)
+    {
+        var activeCuttingCounter = sender as CuttingCounter;
+        PlaySound(_audioClipRef.ChopSFX, activeCuttingCounter.transform.position);
     }
 }

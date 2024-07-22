@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CuttingCounter : BaseCounter, IHasProgressBar
 {
+    public static event EventHandler OnAnyCutting;
     public event Action<float> OnProgressBarUpdated;
     public event Action OnCut;
 
@@ -73,6 +74,7 @@ public class CuttingCounter : BaseCounter, IHasProgressBar
             // Update the UI and animations
             OnProgressBarUpdated?.Invoke(_cuttingProgress / (float)cuttingRecipe.CuttingStepsRequired);
             OnCut?.Invoke();
+            OnAnyCutting?.Invoke(this, EventArgs.Empty);
 
             // Create the cut ingredients and destroy the raw one
             if (_cuttingProgress >= cuttingRecipe.CuttingStepsRequired)
