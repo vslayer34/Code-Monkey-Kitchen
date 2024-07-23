@@ -25,7 +25,8 @@ public class GameManager : MonoBehaviour
     // Timers for the game state
     private float _waitingToStartTimer = 1.0f;
     private float _countDownToStartTimer = 3.0f;
-    private float _playingTimer = 10.0f;
+    private float _playingTimer;
+    private const float ROUND_TIME = 20.0f;
 
 
 
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
 
                 if (_waitingToStartTimer <= 0.0f)
                 {
+                    _playingTimer = ROUND_TIME;
                     _currentGameState = GameState.CountDownToStart;
                 }
 
@@ -98,4 +100,6 @@ public class GameManager : MonoBehaviour
     // Getters & Setters---------------------------------------------------------------------------
 
     public float CountdownToStartTimer { get => _countDownToStartTimer; }
+
+    public float PlayingTimeNormalized { get => _playingTimer / ROUND_TIME; }
 }

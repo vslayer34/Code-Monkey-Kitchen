@@ -25,6 +25,8 @@ public class DeliveryManager : MonoBehaviour
     // Max amunt of waiting orders
     private const int MAX_NUMBER_OF_ORDERS = 4;
 
+    private int _ordersDeliverd;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
@@ -32,6 +34,7 @@ public class DeliveryManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        _ordersDeliverd = 0;
         _waitingOrders = new List<SO_Recipe>();
         // _newOrderTimer = NEW_ORDER_TIME_INTERVAL;
     }
@@ -96,6 +99,7 @@ public class DeliveryManager : MonoBehaviour
                 {
                     // Player delivered correct recipe
                     Debug.Log("Player delivered correct recipe");
+                    _ordersDeliverd++;
                     _waitingOrders.RemoveAt(i);
                     OnOrderCompleted?.Invoke(this, EventArgs.Empty);
                     OnOrderDelivered?.Invoke(this, EventArgs.Empty);
@@ -112,4 +116,5 @@ public class DeliveryManager : MonoBehaviour
     // Getters & Setters---------------------------------------------------------------------------
 
     public List<SO_Recipe> WaitingOrders { get => _waitingOrders; }
+    public int OrderedDelivered { get => _ordersDeliverd; }
 }
