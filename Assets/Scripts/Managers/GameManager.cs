@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             case GameState.WaitingToStart:
                 
                 _waitingToStartTimer -= Time.deltaTime;
+                _playingTimer = ROUND_TIME;
 
                 if (_waitingToStartTimer <= 0.0f)
                 {
