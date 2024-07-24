@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Android.Types;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class Loader
 {
-    public static int targetScene;
+    private static int _targetScene;
 
 
 
@@ -13,6 +14,10 @@ public static class Loader
 
     public static void LoadScene(int sceneIndex)
     {
-        SceneManager.LoadScene(sceneIndex);
+        _targetScene = sceneIndex;
+        
+        SceneManager.LoadScene(SceneReference.LOADING);
     }
+
+    public static void LoaderCallback() => SceneManager.LoadScene(_targetScene);
 }
