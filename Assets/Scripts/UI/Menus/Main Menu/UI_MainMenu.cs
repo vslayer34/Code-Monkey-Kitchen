@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_MainMenu : MonoBehaviour
@@ -21,7 +18,7 @@ public class UI_MainMenu : MonoBehaviour
     {
         _playBtn.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene(SceneReference.GAME_PLAY);
+            Loader.LoadScene(SceneReference.GAME_PLAY);
         });
 
 
