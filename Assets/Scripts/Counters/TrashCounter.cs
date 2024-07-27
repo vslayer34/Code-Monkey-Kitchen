@@ -11,4 +11,9 @@ public class TrashCounter : BaseCounter
         player.KitchenObjectOnCounter?.DestroySelf();
         OnAnyKitchenObjectTrashed?.Invoke(this, EventArgs.Empty);
     }
+
+    new public static void ResetStaticEvents()
+    {
+        OnAnyKitchenObjectTrashed = null;
+    }
 }

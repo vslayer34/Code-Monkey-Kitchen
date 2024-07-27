@@ -29,5 +29,8 @@ public class UI_MainMenu : MonoBehaviour
             #endif
             Application.Quit();
         });
+
+        // Reset the time scale after returning back to main menu
+        Time.timeScale = 1.0f;
     }
 }

@@ -41,6 +41,15 @@ public class GameInput : MonoBehaviour
         _inputVector = _playerInputAction.Player.Move.ReadValue<Vector2>();
     }
 
+    private void OnDestroy()
+    {
+        _playerInputAction.Player.Interact.performed -= Interact_performed;
+        _playerInputAction.Player.InteractAlt.performed -= InteractAlt_performed;
+        _playerInputAction.Player.Pause.performed -= Pause_Performed;
+
+        _playerInputAction.Dispose();
+    }
+
     // Signal Methods------------------------------------------------------------------------------
 
     private void Interact_performed(InputAction.CallbackContext obj)

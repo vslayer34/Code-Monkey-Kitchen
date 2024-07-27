@@ -122,4 +122,9 @@ public class CuttingCounter : BaseCounter, IHasProgressBar
 
         return null;
     }
+
+    new public static void ResetStaticEvents()
+    {
+        OnAnyCutting = null;
+    }
 }

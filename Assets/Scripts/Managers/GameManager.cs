@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameResumed;
+
     public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
     public class OnStateChangedEventArgs : EventArgs
     {
@@ -99,24 +102,31 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("There's no such state for the game", this);
                 break;
         }
-
-        Debug.Log($"Current game state: {_currentGameState}");
     }
 
     // Member Methods------------------------------------------------------------------------------
 
     public bool IsGamePlaying() => _currentGameState == GameState.Playing;
-    private void PauseGame()
+    public void ToggleGamePause()
     {
         _gamePaused = !_gamePaused;
 
-        Time.timeScale = _gamePaused ? 0.0f : 1.0f;
+        if (_gamePaused)
+        {
+            OnGamePaused?.Invoke(this, EventArgs.Empty);
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            OnGameResumed?.Invoke(this, EventArgs.Empty);
+            Time.timeScale = 1.0f;
+        }
     }
 
     // Signal Methods------------------------------------------------------------------------------
     private void GameInput_OnPausePressed(object sender, EventArgs e)
     {
-        PauseGame();
+        ToggleGamePause();
     }
     // Getters & Setters---------------------------------------------------------------------------
 

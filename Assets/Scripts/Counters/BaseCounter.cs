@@ -17,6 +17,13 @@ public abstract class BaseCounter : MonoBehaviour, IKitchenObjectParent
 
 
 
+    // Member Methods------------------------------------------------------------------------------
+    
+    public static void ResetStaticEvents()
+    {
+        OnAnyObjectPlacedOnCounter = null;
+    }
+
     public Transform GetKitchenObjectPlacementPoint()
     {
         return _topPlacementPoint;
