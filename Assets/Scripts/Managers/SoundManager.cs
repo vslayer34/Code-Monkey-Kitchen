@@ -4,12 +4,23 @@ using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager Instance { get; private set; }
+
+
     [SerializeField, Tooltip("Reference to the audio sfx reference SO")]
     private SO_AudioclipReferences _audioClipRef;
+
+    private float _volumeDegree = 1.0f;
 
 
 
     // Game Loop Methods---------------------------------------------------------------------------
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
+    
     private void Start()
     {
         DeliveryManager.Instance.OnOrderDelivered += DeliveryManager_OnOrderDelivered;
@@ -29,7 +40,7 @@ public class SoundManager : MonoBehaviour
 
     private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1.0f)
     {
-        AudioSource.PlayClipAtPoint(audioClip, position, volume);
+        AudioSource.PlayClipAtPoint(audioClip, position, volume * _volumeDegree);
     }
 
     private void PlaySound(AudioClip[] audioClipsList, Vector3 position, float volume = 1.0f)
@@ -76,4 +87,18 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(_audioClipRef.FootStepSFX, Player.Instance.transform.position);
     }
+
+    public void ChangeVolume()
+    {
+        _volumeDegree += 0.1f;
+
+        if (_volumeDegree > 1.0f)
+        {
+            _volumeDegree = 0.0f;
+        }
+    }
+
+    // Getters & Setters---------------------------------------------------------------------------
+
+    public float VolumeDegree { get => _volumeDegree; }
 }
