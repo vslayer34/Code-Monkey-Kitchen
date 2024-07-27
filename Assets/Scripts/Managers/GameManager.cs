@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     private const float ROUND_TIME = 20.0f;
 
 
+    // Pause game
+    private bool _gamePaused = false;
+
+
 
     // Game Lopp Methods---------------------------------------------------------------------------
 
@@ -36,6 +40,11 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         _currentGameState = GameState.WaitingToStart;
+    }
+
+    private void Start()
+    {
+        GameInput.Instance.OnPausePressed += GameInput_OnPausePressed;
     }
 
     private void Update()
@@ -97,7 +106,18 @@ public class GameManager : MonoBehaviour
     // Member Methods------------------------------------------------------------------------------
 
     public bool IsGamePlaying() => _currentGameState == GameState.Playing;
+    private void PauseGame()
+    {
+        _gamePaused = !_gamePaused;
 
+        Time.timeScale = _gamePaused ? 0.0f : 1.0f;
+    }
+
+    // Signal Methods------------------------------------------------------------------------------
+    private void GameInput_OnPausePressed(object sender, EventArgs e)
+    {
+        PauseGame();
+    }
     // Getters & Setters---------------------------------------------------------------------------
 
     public float CountdownToStartTimer { get => _countDownToStartTimer; }

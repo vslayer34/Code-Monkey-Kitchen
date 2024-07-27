@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
+    public static GameInput Instance { get; private set; }
+
+
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAltAction;
+    public event EventHandler OnPausePressed;
 
     private PlayerInputAction _playerInputAction;
 
@@ -19,11 +24,14 @@ public class GameInput : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         _playerInputAction = new PlayerInputAction();
         _playerInputAction.Player.Enable();
 
         _playerInputAction.Player.Interact.performed += Interact_performed;
         _playerInputAction.Player.InteractAlt.performed += InteractAlt_performed;
+        _playerInputAction.Player.Pause.performed += Pause_Performed;
     }
 
     private void Update()
@@ -35,14 +43,19 @@ public class GameInput : MonoBehaviour
 
     // Signal Methods------------------------------------------------------------------------------
 
-    private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Interact_performed(InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
     }
 
-    private void InteractAlt_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void InteractAlt_performed(InputAction.CallbackContext obj)
     {
         OnInteractAltAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Pause_Performed(InputAction.CallbackContext ctx)
+    {
+        OnPausePressed?.Invoke(this, EventArgs.Empty);
     }
 
     // Getters and Setters-------------------------------------------------------------------------
