@@ -12,6 +12,9 @@ public class UI_PauseMenu : MonoBehaviour
     [SerializeField, Tooltip("Reference to the main menu button")]
     private Button _mainMenuBtn;
 
+    [SerializeField, Tooltip("Reference to the options button")]
+    private Button _optionsBtn;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
@@ -26,6 +29,11 @@ public class UI_PauseMenu : MonoBehaviour
         _mainMenuBtn.onClick.AddListener(() =>
         {
             Loader.LoadScene(SceneReference.MAIN_MENU);
+        });
+
+        _optionsBtn.onClick.AddListener(() =>
+        {
+            UI_OptionsMenu.Instance.Show();
         });
     }
 

@@ -16,6 +16,9 @@ public class MusicManager : MonoBehaviour
     {
         Instance = this;
         _audioSource = GetComponent<AudioSource>();
+        
+        _volumeDegree = PlayerPrefs.GetFloat(PlayPrefConsts.MUSIC_VOLUME_DEGREE, _volumeDegree);
+        _audioSource.volume = _volumeDegree;
     }
     // Member Methods------------------------------------------------------------------------------
     public void ChangeVolume()
@@ -27,6 +30,7 @@ public class MusicManager : MonoBehaviour
             _volumeDegree = 0.0f;
         }
 
+        PlayerPrefs.SetFloat(PlayPrefConsts.MUSIC_VOLUME_DEGREE, _volumeDegree);
         _audioSource.volume = _volumeDegree;
     }
     // Getters & Setters---------------------------------------------------------------------------

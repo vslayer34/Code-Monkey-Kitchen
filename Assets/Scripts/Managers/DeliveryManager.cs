@@ -52,7 +52,6 @@ public class DeliveryManager : MonoBehaviour
                 var newOrder = DaysMenu.RecipeMenu[Random.Range(0, DaysMenu.RecipeMenu.Count)];
                 _waitingOrders.Add(newOrder);
 
-                Debug.Log(newOrder.RecipeName);
                 OnNewOrderAdded?.Invoke(this, EventArgs.Empty);
             }
         }

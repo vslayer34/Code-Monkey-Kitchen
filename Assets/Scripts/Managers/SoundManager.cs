@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        _volumeDegree = PlayerPrefs.GetFloat(PlayPrefConsts.SFX_VOLUME_DEGREE, 1.0f);
     }
     
     private void Start()
@@ -96,6 +98,8 @@ public class SoundManager : MonoBehaviour
         {
             _volumeDegree = 0.0f;
         }
+
+        PlayerPrefs.SetFloat(PlayPrefConsts.SFX_VOLUME_DEGREE, _volumeDegree);
     }
 
     // Getters & Setters---------------------------------------------------------------------------
