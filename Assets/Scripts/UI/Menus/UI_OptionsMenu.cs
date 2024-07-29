@@ -28,6 +28,9 @@ public class UI_OptionsMenu : MonoBehaviour
     [SerializeField, Tooltip("Reference to the close button"), Space(10)]
     private Button _closeBtn;
 
+    [SerializeField, Tooltip("Reference to the key binding ui"), Space(10)]
+    private UI_KeyBindingGroup _keyBindingGroup;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
@@ -55,6 +58,7 @@ public class UI_OptionsMenu : MonoBehaviour
         });
 
         GameInput.Instance.OnPausePressed += GameInput_OnPausePressed;
+        GameInput.Instance.OnKeyBindingChanged += GameInput_OnKeyBindingChanged;
     }
 
     private void Start()
@@ -73,6 +77,9 @@ public class UI_OptionsMenu : MonoBehaviour
     {
         _musicVolumeBtnText.text = $"Music: {Mathf.Ceil(MusicManager.Instance.VolumeDegree * 10.0f)}";
         _sfxVolumeBtnText.text = $"Sound Effects: {Mathf.Ceil(SoundManager.Instance.VolumeDegree * 10.0f)}";
+
+        _keyBindingGroup.UpdateKeyBindingsUI();
+        _keyBindingGroup.InitializeRebingBtns();
     }
 
     // Signal Methods------------------------------------------------------------------------------
@@ -80,5 +87,10 @@ public class UI_OptionsMenu : MonoBehaviour
     private void GameInput_OnPausePressed(object sender, EventArgs e)
     {
         Hide();
+    }
+
+    private void GameInput_OnKeyBindingChanged(object sender, EventArgs e)
+    {
+        UpdateUI();
     }
 }
