@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class UI_OptionsMenu : MonoBehaviour
 {
+    public Action OnOptionsMenuShowing;
     public static UI_OptionsMenu Instance { get; private set; }
 
 
@@ -70,7 +71,11 @@ public class UI_OptionsMenu : MonoBehaviour
 
     // Memeber Methods-----------------------------------------------------------------------------
 
-    public void Show() => gameObject.SetActive(true);
+    public void Show(Action callback)
+    {
+        gameObject.SetActive(true);
+        _sfxVolumeBtn.Select();
+    }
     public void Hide() => gameObject.SetActive(false);
 
     private void UpdateUI()

@@ -33,7 +33,8 @@ public class UI_PauseMenu : MonoBehaviour
 
         _optionsBtn.onClick.AddListener(() =>
         {
-            UI_OptionsMenu.Instance.Show();
+            UI_OptionsMenu.Instance.Show(Show);
+            Hide();
         });
     }
 
@@ -61,6 +62,7 @@ public class UI_PauseMenu : MonoBehaviour
     private void Show()
     {
         gameObject.SetActive(true);
+        _resumeBtn.Select();
     }
 
     // Signal Methods------------------------------------------------------------------------------
