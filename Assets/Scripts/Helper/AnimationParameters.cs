@@ -37,4 +37,9 @@ public static class AnimationParameters
         /// </summary>
         public const string CUT = "Cut";
     }
+
+    public static class GameUI
+    {
+        public const string UI_COUNT_TIME = "Number Pop Out";
+    }
 }

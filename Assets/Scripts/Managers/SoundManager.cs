@@ -40,6 +40,11 @@ public class SoundManager : MonoBehaviour
 
     // Member Methods------------------------------------------------------------------------------
 
+    public void PlayWarning()
+    {
+        PlaySound(_audioClipRef.WarnningSFX, Vector3.zero);
+    }
+
     private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1.0f)
     {
         AudioSource.PlayClipAtPoint(audioClip, position, volume * _volumeDegree);
