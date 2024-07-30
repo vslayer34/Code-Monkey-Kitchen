@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GameInput.Instance.OnPausePressed += GameInput_OnPausePressed;
+        GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
     }
 
     private void Update()
@@ -56,14 +57,14 @@ public class GameManager : MonoBehaviour
         {
             case GameState.WaitingToStart:
                 
-                _waitingToStartTimer -= Time.deltaTime;
-                _playingTimer = ROUND_TIME;
+                // _waitingToStartTimer -= Time.deltaTime;
+                // _playingTimer = ROUND_TIME;
 
-                if (_waitingToStartTimer <= 0.0f)
-                {
-                    _playingTimer = ROUND_TIME;
-                    _currentGameState = GameState.CountDownToStart;
-                }
+                // if (_waitingToStartTimer <= 0.0f)
+                // {
+                //     _playingTimer = ROUND_TIME;
+                //     _currentGameState = GameState.CountDownToStart;
+                // }
 
                 OnStateChanged?.Invoke(this, new OnStateChangedEventArgs{ state = _currentGameState });
                 break;
@@ -127,6 +128,12 @@ public class GameManager : MonoBehaviour
     private void GameInput_OnPausePressed(object sender, EventArgs e)
     {
         ToggleGamePause();
+    }
+
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
+    {
+        _playingTimer = ROUND_TIME;
+        _currentGameState = GameState.CountDownToStart;
     }
     // Getters & Setters---------------------------------------------------------------------------
 
