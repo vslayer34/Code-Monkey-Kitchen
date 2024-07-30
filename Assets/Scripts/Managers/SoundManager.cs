@@ -55,6 +55,11 @@ public class SoundManager : MonoBehaviour
         PlaySound(audioClipsList[Random.Range(0, audioClipsList.Length)], position, volume);
     }
 
+    public void PlayWarning(Vector3 postion)
+    {
+        PlaySound(_audioClipRef.WarnningSFX, postion);
+    }
+
     // Signal Methods------------------------------------------------------------------------------
 
     private void DeliveryManager_OnOrderDelivered(object sender, EventArgs e)
