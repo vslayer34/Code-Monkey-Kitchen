@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
             case GameState.WaitingToStart:
                 
                 // _waitingToStartTimer -= Time.deltaTime;
-                // _playingTimer = ROUND_TIME;
+                _playingTimer = ROUND_TIME;
 
                 // if (_waitingToStartTimer <= 0.0f)
                 // {
@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
-        _playingTimer = ROUND_TIME;
+        // _playingTimer = ROUND_TIME;
         _currentGameState = GameState.CountDownToStart;
     }
     // Getters & Setters---------------------------------------------------------------------------

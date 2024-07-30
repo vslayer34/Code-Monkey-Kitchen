@@ -235,4 +235,8 @@ public class StoveCounter : BaseCounter, IHasProgressBar
 
         return null;
     }
+
+    // Getters and Setters-------------------------------------------------------------------------
+
+    public bool IsInFriedState() => _state == State.Fried;
 }
