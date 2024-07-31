@@ -41,5 +41,6 @@ public static class AnimationParameters
     public static class GameUI
     {
         public const string UI_COUNT_TIME = "Number Pop Out";
+        public const string UI_FLASHING_PROGRESS_BAR = "Is Flashing";
     }
 }

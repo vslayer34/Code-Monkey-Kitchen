@@ -924,8 +924,56 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5889206563050127359, guid: c58912ca0856c6df5a62f76444099fae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7789568524650014983}
+    - targetCorrespondingSourceObject: {fileID: 5889206563050127359, guid: c58912ca0856c6df5a62f76444099fae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4324663167287048498}
   m_SourcePrefab: {fileID: 100100000, guid: c58912ca0856c6df5a62f76444099fae, type: 3}
+--- !u!1 &1779426120325960553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5889206563050127359, guid: c58912ca0856c6df5a62f76444099fae,
+    type: 3}
+  m_PrefabInstance: {fileID: 5263406736434588822}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7789568524650014983
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779426120325960553}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b686f00f7b6fb244dba6f9b15cb6114b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4324663167287048498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779426120325960553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb434f20569cdd84fa60aa4461e8f221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentStove: {fileID: 3583725463928638516}
 --- !u!224 &4846846778905555953 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 740866317103243111, guid: c58912ca0856c6df5a62f76444099fae,
