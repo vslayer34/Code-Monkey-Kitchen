@@ -37,10 +37,15 @@ public static class AnimationParameters
         /// </summary>
         public const string CUT = "Cut";
     }
+    
 
+    /// <summary>
+    /// Contains references to UI and HUD animations
+    /// </summary>
     public static class GameUI
     {
         public const string UI_COUNT_TIME = "Number Pop Out";
         public const string UI_FLASHING_PROGRESS_BAR = "Is Flashing";
+        public const string UI_DELIVERY_RESULT_PPO_OUT = "Pop out";
     }
 }
