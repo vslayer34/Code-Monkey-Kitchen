@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private float _waitingToStartTimer = 1.0f;
     private float _countDownToStartTimer = 3.0f;
     private float _playingTimer;
-    private const float ROUND_TIME = 20.0f;
+    private const float ROUND_TIME = 60.0f;
 
 
     // Pause game
